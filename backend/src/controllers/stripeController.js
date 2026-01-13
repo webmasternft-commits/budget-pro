@@ -1,12 +1,22 @@
 import Stripe from 'stripe';
 import { PrismaClient } from '@prisma/client';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Initialize Stripe only if key is provided
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY)
+  : null;
 const prisma = new PrismaClient();
 
 // Create Checkout Session
 export const createCheckoutSession = async (req, res) => {
   try {
+    if (!stripe) {
+      return res.status(503).json({
+        success: false,
+        message: 'Stripe is not configured. Please contact support.'
+      });
+    }
+
     const { priceId, plan } = req.body;
     const userId = req.userId;
 
@@ -87,6 +97,13 @@ export const createCheckoutSession = async (req, res) => {
 // Create Customer Portal Session
 export const createPortalSession = async (req, res) => {
   try {
+    if (!stripe) {
+      return res.status(503).json({
+        success: false,
+        message: 'Stripe is not configured. Please contact support.'
+      });
+    }
+
     const userId = req.userId;
 
     const user = await prisma.user.findUnique({
@@ -159,6 +176,13 @@ export const getSubscription = async (req, res) => {
 
 // Webhook Handler
 export const handleWebhook = async (req, res) => {
+  if (!stripe) {
+    return res.status(503).json({
+      success: false,
+      message: 'Stripe is not configured'
+    });
+  }
+
   const sig = req.headers['stripe-signature'];
   let event;
 
