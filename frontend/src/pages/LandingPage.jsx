@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PricingCard from '../components/PricingCard';
 import './LandingPage.css';
 
 const LandingPage = () => {
@@ -48,6 +49,8 @@ const LandingPage = () => {
       price: '0',
       period: 'Forever',
       description: 'Parfait pour débuter',
+      planName: 'free',
+      priceId: null,
       features: [
         '1 budget mensuel',
         '4 catégories de base',
@@ -65,6 +68,8 @@ const LandingPage = () => {
       price: '9.99',
       period: '/mois',
       description: 'Pour une gestion avancée',
+      planName: 'pro',
+      priceId: 'price_YOUR_PRO_PRICE_ID', // À remplacer avec votre Price ID Stripe
       features: [
         'Budgets illimités',
         'Toutes les catégories',
@@ -85,6 +90,8 @@ const LandingPage = () => {
       price: '29.99',
       period: '/mois',
       description: 'Pour les professionnels',
+      planName: 'business',
+      priceId: 'price_YOUR_BUSINESS_PRICE_ID', // À remplacer avec votre Price ID Stripe
       features: [
         'Tout du plan Pro',
         'Jusqu\'à 10 utilisateurs',
@@ -295,32 +302,7 @@ const LandingPage = () => {
           </div>
           <div className="pricing-grid">
             {pricing.map((plan, index) => (
-              <div className={`pricing-card ${plan.highlighted ? 'highlighted' : ''}`} key={index}>
-                {plan.badge && <div className="pricing-badge">{plan.badge}</div>}
-                <div className="pricing-header">
-                  <h3>{plan.name}</h3>
-                  <p className="pricing-description">{plan.description}</p>
-                  <div className="pricing-price">
-                    <span className="currency">€</span>
-                    <span className="amount">{plan.price}</span>
-                    <span className="period">{plan.period}</span>
-                  </div>
-                </div>
-                <ul className="pricing-features">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx}>
-                      <i className="fas fa-check"></i>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/register"
-                  className={`btn-pricing ${plan.highlighted ? 'btn-primary' : 'btn-secondary'}`}
-                >
-                  {plan.cta}
-                </Link>
-              </div>
+              <PricingCard key={index} plan={plan} />
             ))}
           </div>
           <div className="pricing-footer">

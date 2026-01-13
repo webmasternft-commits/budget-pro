@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/authRoutes.js';
 import budgetRoutes from './routes/budgetRoutes.js';
+import stripeRoutes from './routes/stripeRoutes.js';
 
 dotenv.config();
 
@@ -21,12 +22,17 @@ app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   credentials: true
 }));
+
+// Stripe webhook needs raw body (before express.json())
+app.use('/api/stripe/webhook', stripeRoutes);
+
 app.use(express.json());
 app.use(limiter);
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/budgets', budgetRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
