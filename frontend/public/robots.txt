@@ -1,0 +1,8 @@
+# robots.txt for BudgetPro
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://budgetpro.fr/sitemap.xml
