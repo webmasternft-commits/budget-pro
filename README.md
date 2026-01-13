@@ -1,6 +1,8 @@
 # 💰 BudgetPro - Application de Gestion de Budget
 
-Application web complète de gestion de budget personnel avec authentification et synchronisation cloud.
+Application web complète de gestion de budget personnel avec authentification, synchronisation cloud et abonnements Stripe.
+
+🌐 **Live Demo:** [https://budgetpro.fr](https://budgetpro.fr) (bientôt en ligne)
 
 ## 🚀 Fonctionnalités
 
@@ -119,6 +121,39 @@ budget-pro/
 - Protection CORS
 - Rate limiting (100 req/15min)
 - Isolation complète des données utilisateur
+
+## 🚀 Déploiement Production
+
+### Configuration Actuelle
+- **Frontend:** Vercel (budgetpro.fr)
+- **Backend:** Railway (api.budgetpro.fr)
+- **Database:** Supabase (PostgreSQL)
+- **Paiements:** Stripe
+
+### Guide Complet
+Consultez [DEPLOYMENT.md](./DEPLOYMENT.md) pour le guide détaillé de déploiement sur Vercel + Railway avec votre domaine personnalisé.
+
+### Quick Deploy
+
+**Vercel (Frontend):**
+```bash
+npm install -g vercel
+cd frontend
+vercel
+```
+
+**Railway (Backend):**
+1. Connectez votre repo GitHub à Railway
+2. Sélectionnez le dossier `backend`
+3. Configurez les variables d'environnement
+4. Déployez !
+
+## 📚 Documentation
+
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Guide de déploiement production
+- [STRIPE-SETUP.md](./STRIPE-SETUP.md) - Configuration Stripe
+- [LANCEMENT-SAAS.md](./LANCEMENT-SAAS.md) - Stratégie de lancement
+- [LANDING-PAGE.md](./LANDING-PAGE.md) - Documentation landing page
 
 ## 📝 Licence
 
